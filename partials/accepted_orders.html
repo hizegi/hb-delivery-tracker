@@ -1,13 +1,29 @@
-<article class="panel panel-default" ng-repeat="delivery in vm.deliveryList" ng-if="delivery.orderStatus != 'Delivered'">
-  <div class="panel-body">
-    {{delivery.deliveryDate}}
-  </div>
-  <footer class="panel-footer">
-    <div class="author">
+<article class="panel panel-info" ng-repeat="delivery in vm.deliveryList" ng-if="delivery.orderStatus != 'Delivered'">
+  <div class="panel-body ticket-header">
+    <p class="bold-title">Order # {{delivery.id}} <span id="delivery-date">Delivery Date: {{delivery.deliveryDate}}</span> </p>
+    <p class="underline">Recipient Details</p>
+    <p>{{delivery.recipient.name}}</p>
+    <p>{{delivery.recipient.addressLineOne}}</p>
+    <p>{{delivery.recipient.city}}, {{delivery.recipient.state}} {{delivery.recipient.zipCode}}</p>
+    <p>{{delivery.recipient.country}}</p>
+    <p>{{delivery.recipient.phone}}</p>
 
+    <button class="btn btn-primary" ng-click="clickShow = !clickShow">Order Details</button>
+
+    <div class="show-details" ng-if="clickShow">
+      <p ng-repeat="item in delivery.items">
+        <span class="bold-title">Qty:</span> {{item.quantity}} <br><br>
+        <span class="bold-title">Description:</span> {{item.description}}
+      </p>
+      <p><span class="bold-title">Delivery type:</span> {{delivery.classifiers.lob}} {{delivery.classifiers.opSeg}}</p>
+      <p><span class="bold-title">Special Instructions:</span> {{delivery.specialInstructions}}</p>
+      <p><span class="bold-title">Total:</span> ${{delivery.totalCost}}</p>
     </div>
-    <div class="config">
-      <a>Mark as delivered</a>
+  </div>
+
+  <footer class="panel-footer">
+    <div class="config" ng-if="delivery.orderStatus != 'Delivered'">
+      <button class="btn btn-danger" ng-click="vm.markAsDelivered(delivery)">Mark as Delivered</button>
     </div>
   </footer>
 </article>

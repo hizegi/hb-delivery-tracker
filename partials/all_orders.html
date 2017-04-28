@@ -1,7 +1,7 @@
 <article class="panel panel-info" ng-repeat="delivery in vm.deliveryList">
   <div class="panel-body ticket-header">
-    <p id="panel-title">Order # {{delivery.id}} <span>Delivery Date: {{delivery.deliveryDate}}</span> </p>
-    <p>Recipient Details</p>
+    <p class="bold-title">Order # {{delivery.id}} <span id="delivery-date">Delivery Date: {{delivery.deliveryDate}}</span> </p>
+    <p class="underline">Recipient Details</p>
     <p>{{delivery.recipient.name}}</p>
     <p>{{delivery.recipient.addressLineOne}}</p>
     <p>{{delivery.recipient.city}}, {{delivery.recipient.state}} {{delivery.recipient.zipCode}}</p>
@@ -10,19 +10,17 @@
 
     <button class="btn btn-primary" ng-click="clickShow = !clickShow">Order Details</button>
 
-    <div ng-if="clickShow">
+    <div class="show-details" ng-if="clickShow">
       <p ng-repeat="item in delivery.items">
-        Qty: {{item.quantity}} <br>
-        Description: {{item.description}}<br>
+        <span class="bold-title">Qty:</span> {{item.quantity}} <br><br>
+        <span class="bold-title">Description:</span> {{item.description}}
       </p>
-      <p>Delivery type: {{delivery.classifiers.lob}} {{delivery.classifiers.opSeg}}</p>
-      <p>Special Instructions: {{delivery.specialInstructions}}</p>
-      <p>Total: ${{delivery.totalCost}}</p>
+      <p><span class="bold-title">Delivery type:</span> {{delivery.classifiers.lob}} {{delivery.classifiers.opSeg}}</p>
+      <p><span class="bold-title">Special Instructions:</span> {{delivery.specialInstructions}}</p>
+      <p><span class="bold-title">Total:</span> ${{delivery.totalCost}}</p>
     </div>
-
-
-
   </div>
+
   <footer class="panel-footer">
     <div class="author">
 

@@ -8,9 +8,9 @@ h1 {
 }
 
 /* Delivery Panel DIVS */
-#panel-title{
+.bold-title{
   font-weight: bold;
-  
+
 }
 .config{
   display: inline-block;
@@ -19,7 +19,15 @@ h1 {
   width: 100%;
 }
 
-.ticket-header span{
+#delivery-date{
   text-align: right;
   float: right;
+}
+
+.show-details{
+  padding: 2em;
+}
+
+.underline{
+  text-decoration: underline;
 }
