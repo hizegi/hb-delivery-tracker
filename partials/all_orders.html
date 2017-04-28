@@ -28,5 +28,8 @@
     <div class="config" ng-if="delivery.orderStatus != 'Delivered'">
       <button class="btn btn-danger" ng-click="vm.markAsDelivered(delivery)">Mark as Delivered</button>
     </div>
+    <div class="config" ng-if="delivery.orderStatus != 'Accepted'">
+      <a ng-click="vm.markAsDelivered(delivery)">Order was Delivered: {{delivery.deliveryDate}}</a>
+    </div>
   </footer>
 </article>

@@ -3,6 +3,10 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+p{
+  margin: 0 0 6px;
+}
+
 h1 {
   text-align: center
 }

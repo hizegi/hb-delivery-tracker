@@ -16,6 +16,9 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     .when('/accepted', {
         templateUrl: 'partials/accepted_orders.html'
     })
+    .when('/search', {
+        templateUrl: 'partials/all_orders.html'
+    })
     .when('/oops', {
         templateUrl: 'partials/error_page.html'
     })

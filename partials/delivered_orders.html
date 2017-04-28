@@ -1,4 +1,4 @@
-<article class="panel panel-info" ng-repeat="delivery in vm.deliveryList">
+<article class="panel panel-info" ng-repeat="delivery in vm.deliveryList" ng-if="delivery.orderStatus != 'Accepted'">
   <div class="panel-body ticket-header">
     <p class="bold-title">Order # {{delivery.id}} <span id="delivery-date">Delivery Date: {{delivery.deliveryDate}}</span> </p>
     <p class="underline">Recipient Details</p>
