@@ -5,16 +5,13 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     $locationProvider.html5Mode({ enabled: true }); // tell angular to use push state
     $routeProvider
     .when('/all', {
-        templateUrl: 'partials/all_orders.html',
-        controller: 'deliveryController'
+        templateUrl: 'partials/all_orders.html'
     })
     .when('/delivered', {
-        templateUrl: 'partials/delivered_orders.html',
-        controller: 'deliveryController'
+        templateUrl: 'partials/delivered_orders.html'
     })
     .when('/accepted', {
-        templateUrl: 'partials/accepted_orders.html',
-        controller: 'deliveryController'
+        templateUrl: 'partials/accepted_orders.html'
     })
     .when('/oops', {
         templateUrl: 'partials/error_page.html'
@@ -24,6 +21,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
 /* DELIVERY CONTROLLER */
 myApp.controller('deliveryController', ['$routeParams', function($routeParams){
     const main = this;
+    main.message = "HELLO";
     main.deliveryList = deliveryList;
 }])
 

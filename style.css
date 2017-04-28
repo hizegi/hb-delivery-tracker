@@ -6,3 +6,11 @@ body {
 h1 {
   text-align: center
 }
+
+/* Delivery DIVS */
+.config{
+  display: inline-block;
+  text-align: right;
+  font-size: 12px;
+  width: 100%;
+}
