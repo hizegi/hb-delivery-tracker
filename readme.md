@@ -28,3 +28,6 @@ To use: clone or download and you will have to run a simple server. I recommend 
     - Add Maps
     - Add more info
     - Add a DATABASE for CRUD
+  - Search Features:
+    - Calendar range not implemented. Only returns 1 day results.
+    - Display range results.
