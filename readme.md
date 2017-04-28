@@ -1,5 +1,7 @@
 # Delivery Tracker App
 
+Video walkthrough: https://youtu.be/-KLWX-RzvMI
+
 To use: clone or download and you will have to run a simple server. I recommend running `python -m SimpleHTTPServer 8000` on terminal. You can visit the app on `localhost:8000` in your browser.
 
 ## Technologies
@@ -8,7 +10,7 @@ To use: clone or download and you will have to run a simple server. I recommend 
   - Bootstrap for responsive design
 
 ## Description and Features:
-  - SPA
+  - SPA (Front-end ONLY)
   - No back-end
   - View all deliveries, filter, and search by date
   - Mark complete for pending deliveries
@@ -25,3 +27,4 @@ To use: clone or download and you will have to run a simple server. I recommend 
   - Extra features:
     - Add Maps
     - Add more info
+    - Add a DATABASE for CRUD
