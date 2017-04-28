@@ -1,4 +1,4 @@
-var myApp = angular.module('deliveryApp', ['ngRoute']);
+var myApp = angular.module('deliveryApp', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 
 /* ROUTING CONFIG */
 myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -17,7 +17,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         templateUrl: 'partials/accepted_orders.html'
     })
     .when('/search', {
-        templateUrl: 'partials/all_orders.html'
+        templateUrl: 'partials/search_date.html'
     })
     .when('/oops', {
         templateUrl: 'partials/error_page.html'
@@ -29,6 +29,9 @@ myApp.controller('deliveryController', ['$routeParams', function($routeParams){
     const main = this;
     //all deliveries
     main.deliveryList = deliveryList;
+    main.searchDate = "";
+    main.searchMessage = "";
+    main.searchByDateResults = [];
 
     //update delivery status to complete
     main.markAsDelivered = function(d){
@@ -37,7 +40,150 @@ myApp.controller('deliveryController', ['$routeParams', function($routeParams){
       }
     }
 
-}])
+    //CALENDAR UI CODE FROM ANGULAR UI DOCS
+    //http://angular-ui.github.io/bootstrap/versioned-docs/0.12.0/
+  main.today = function() {
+    console.log("today!");
+    main.dt = new Date();
+  };
+
+  main.today();
+
+  main.clear = function() {
+    main.searchByDateResults = [];
+    main.searchMessage = "";
+    main.dt = null;
+  };
+
+  main.inlineOptions = {
+    customClass: getDayClass,
+    minDate: new Date(),
+    showWeeks: true
+  };
+
+  main.dateOptions = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: new Date(),
+    startingDay: 1
+  };
+
+  // Disable weekend selection
+  function disabled(data) {
+    var date = data.date,
+      mode = data.mode;
+    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+  }
+
+  main.toggleMin = function() {
+    main.inlineOptions.minDate = main.inlineOptions.minDate ? null : new Date();
+    main.dateOptions.minDate = main.inlineOptions.minDate;
+  };
+
+  main.toggleMin();
+
+  main.open1 = function() {
+    main.popup1.opened = true;
+  };
+
+  main.open2 = function() {
+    main.popup2.opened = true;
+  };
+
+  main.setDate = function(year, month, day) {
+    main.dt = new Date(year, month, day);
+  };
+
+  main.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  main.format = main.formats[0];
+  main.altInputFormats = ['M!/d!/yyyy'];
+
+  main.popup1 = {
+    opened: false
+  };
+
+  main.popup2 = {
+    opened: false
+  };
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date();
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  main.events = [
+    {
+      date: tomorrow,
+      status: 'full'
+    },
+    {
+      date: afterTomorrow,
+      status: 'partially'
+    }
+  ];
+
+  function getDayClass(data) {
+    var date = data.date,
+      mode = data.mode;
+    if (mode === 'day') {
+      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+      for (var i = 0; i < main.events.length; i++) {
+        var currentDay = new Date(main.events[i].date).setHours(0,0,0,0);
+
+        if (dayToCheck === currentDay) {
+          return main.events[i].status;
+        }
+      }
+    }
+
+    return '';
+  }
+
+  //search by date parses date back to "YYYY/MM/DD" to match JSON
+  main.searchByDate = function(){
+    //clear out previous results
+    main.searchByDateResults = [];
+    main.searchMessage = "";
+
+    let d = new Date(main.dt),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    main.searchDate = [year, month, day].join('-');
+    main.checkForMatch(main.searchDate);
+  }
+
+  //iterate through all DeliveryList and find matches
+  main.checkForMatch = function(date){
+    for (var object of deliveryList) {
+      if (object.deliveryDate == date){
+        console.log("HOLLA")
+        main.searchByDateResults.push(object);
+      } else {
+        main.searchMessage = `${main.searchByDateResults.length} order(s) found.`
+      }
+    }
+  }
+
+  //SOMETHING ISN'T WORKING HERE :(
+  // main.checkForEmptyResults = function(){
+  //   console.log(main.searchByDateResults)
+  //   if (main.searchByDateResults.length = 0) {
+  //    return main.searchMessage = `No orders for ${date}.`
+  //   } else {
+  //    return main.searchMessage = `${main.searchByDateResults.length} orders found.`;
+  //  }
+  // }
+
+
+}]); //end of deliveryController
+
+
 
 /* DATA STORE FOR DELIVERIES.JSON */
 var deliveryList =

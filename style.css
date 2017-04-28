@@ -10,6 +10,10 @@ p{
 h1 {
   text-align: center
 }
+/* Search Form */
+.search-bar{
+  padding: 2em 0;
+}
 
 /* Delivery Panel DIVS */
 .bold-title{

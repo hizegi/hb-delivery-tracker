@@ -1,0 +1,72 @@
+<div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="">Start Date:</label>
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+
+      <div class="col-md-6">
+        <label for="">End Date:</label>
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup2.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+    </div>
+
+
+    <hr />
+    <button type="button" class="btn btn-sm btn-danger" ng-click="vm.clear()">Clear</button>
+    <button type="button" class="btn btn-sm btn-primary" ng-click="vm.searchByDate()">Search</button>
+  </div>
+
+  <!-- display error message if no match found -->
+  <div class="error-message">
+    {{vm.searchMessage}}
+  </div>
+
+  <!-- search results for matching date results -->
+  <div class="search-results" ng-if="vm.searchByDateResults != []">
+    <article class="panel panel-info" ng-repeat="delivery in vm.searchByDateResults | filter: query">
+      <div class="panel-body ticket-header">
+        <p class="bold-title">Order # {{delivery.id}} <span id="delivery-date">Delivery Date: {{delivery.deliveryDate}}</span> </p>
+        <p class="underline">Recipient Details</p>
+        <p>{{delivery.recipient.name}}</p>
+        <p>{{delivery.recipient.addressLineOne}}</p>
+        <p>{{delivery.recipient.city}}, {{delivery.recipient.state}} {{delivery.recipient.zipCode}}</p>
+        <p>{{delivery.recipient.country}}</p>
+        <p>{{delivery.recipient.phone}}</p>
+
+        <button class="btn btn-primary" ng-click="clickShow = !clickShow">Order Details</button>
+
+        <div class="show-details" ng-if="clickShow">
+          <p ng-repeat="item in delivery.items">
+            <span class="bold-title">Qty:</span> {{item.quantity}} <br><br>
+            <span class="bold-title">Description:</span> {{item.description}}
+          </p>
+          <p><span class="bold-title">Delivery type:</span> {{delivery.classifiers.lob}} {{delivery.classifiers.opSeg}}</p>
+          <p><span class="bold-title">Special Instructions:</span> {{delivery.specialInstructions}}</p>
+          <p><span class="bold-title">Total:</span> ${{delivery.totalCost}}</p>
+        </div>
+      </div>
+
+      <footer class="panel-footer">
+        <div class="author">
+
+        </div>
+        <div class="config" ng-if="delivery.orderStatus != 'Delivered'">
+          <button class="btn btn-danger" ng-click="vm.markAsDelivered(delivery)">Mark as Delivered</button>
+        </div>
+        <div class="config" ng-if="delivery.orderStatus != 'Accepted'">
+          <a ng-click="vm.markAsDelivered(delivery)">Order was Delivered: {{delivery.deliveryDate}}</a>
+        </div>
+      </footer>
+    </article>
+  </div>
