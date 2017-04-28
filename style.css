@@ -7,10 +7,19 @@ h1 {
   text-align: center
 }
 
-/* Delivery DIVS */
+/* Delivery Panel DIVS */
+#panel-title{
+  font-weight: bold;
+  
+}
 .config{
   display: inline-block;
   text-align: right;
   font-size: 12px;
   width: 100%;
+}
+
+.ticket-header span{
+  text-align: right;
+  float: right;
 }

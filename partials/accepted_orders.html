@@ -1,1 +1,13 @@
-<h1>Accepted Orders</h1>
+<article class="panel panel-default" ng-repeat="delivery in vm.deliveryList" ng-if="delivery.orderStatus != 'Delivered'">
+  <div class="panel-body">
+    {{delivery.deliveryDate}}
+  </div>
+  <footer class="panel-footer">
+    <div class="author">
+
+    </div>
+    <div class="config">
+      <a>Mark as delivered</a>
+    </div>
+  </footer>
+</article>

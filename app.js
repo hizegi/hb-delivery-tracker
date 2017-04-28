@@ -4,6 +4,9 @@ var myApp = angular.module('deliveryApp', ['ngRoute']);
 myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode({ enabled: true }); // tell angular to use push state
     $routeProvider
+    .when('/', {
+        templateUrl: 'partials/all_orders.html'
+    })
     .when('/all', {
         templateUrl: 'partials/all_orders.html'
     })
@@ -21,8 +24,16 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
 /* DELIVERY CONTROLLER */
 myApp.controller('deliveryController', ['$routeParams', function($routeParams){
     const main = this;
-    main.message = "HELLO";
+    //all deliveries
     main.deliveryList = deliveryList;
+
+    //update delivery status to complete
+    main.markAsDelivered = function(d){
+      if (d.orderStatus != "Delivered") {
+        d.orderStatus = "Delivered";
+      }
+    }
+
 }])
 
 /* DATA STORE FOR DELIVERIES.JSON */
