@@ -31,3 +31,7 @@ To use: clone or download and you will have to run a simple server. I recommend 
   - Search Features:
     - Calendar range not implemented. Only returns 1 day results.
     - Display range results.
+  - Refactoring:
+    - Code isn't as DRY as it can be.
+    - Create a Directive for all orders instead of using the same code for all 4 states
+    
