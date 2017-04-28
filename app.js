@@ -1,38 +1,32 @@
-var myApp = angular.module("deliveryApp", ['ngRoute']);
+var myApp = angular.module('deliveryApp', ['ngRoute']);
 
-myApp
-  .controller("deliveryController", deliveryController)
-  .config(function($routeProvider) {
+/* ROUTING CONFIG */
+myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    $locationProvider.html5Mode({ enabled: true }); // tell angular to use push state
     $routeProvider
-        .when('/', {
-            templateUrl: 'index.html'
-        })
-        .when('/all', {
-            templateUrl: 'partials/all_orders.html',
-            controller: 'deliveryController'
-        })
-        .when('/delivered', {
-            templateUrl: 'partials/delivered_orders.html',
-            controller: 'deliveryController'
-        })
-        .when('/accepted', {
-            templateUrl: 'partials/accepted_orders.html',
-            controller: 'deliveryController'
-        })
-        .when('/oops', {
-            templateUrl: 'partials/error_page.html'
-        })
-        // .otherwise({ //for error page
-        //     redirectTo: '/oops'
-        // });
-      });
+    .when('/all', {
+        templateUrl: 'partials/all_orders.html',
+        controller: 'deliveryController'
+    })
+    .when('/delivered', {
+        templateUrl: 'partials/delivered_orders.html',
+        controller: 'deliveryController'
+    })
+    .when('/accepted', {
+        templateUrl: 'partials/accepted_orders.html',
+        controller: 'deliveryController'
+    })
+    .when('/oops', {
+        templateUrl: 'partials/error_page.html'
+    })
+}]);
 
 /* DELIVERY CONTROLLER */
-function deliveryController(){
-  const main = this;
-  main.deliveryList = deliveryList;
+myApp.controller('deliveryController', ['$routeParams', function($routeParams){
+    const main = this;
+    main.deliveryList = deliveryList;
+}])
 
-}
 /* DATA STORE FOR DELIVERIES.JSON */
 var deliveryList =
 [
