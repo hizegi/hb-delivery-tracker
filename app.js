@@ -1,7 +1,33 @@
-angular
-  .module("deliveryApp", [])
-  .controller("deliveryController", deliveryController);
+var myApp = angular.module("deliveryApp", ['ngRoute']);
 
+myApp
+  .controller("deliveryController", deliveryController)
+  .config(function($routeProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: 'index.html'
+        })
+        .when('/all', {
+            templateUrl: 'partials/all_orders.html',
+            controller: 'deliveryController'
+        })
+        .when('/delivered', {
+            templateUrl: 'partials/delivered_orders.html',
+            controller: 'deliveryController'
+        })
+        .when('/accepted', {
+            templateUrl: 'partials/accepted_orders.html',
+            controller: 'deliveryController'
+        })
+        .when('/oops', {
+            templateUrl: 'partials/error_page.html'
+        })
+        // .otherwise({ //for error page
+        //     redirectTo: '/oops'
+        // });
+      });
+
+/* DELIVERY CONTROLLER */
 function deliveryController(){
   const main = this;
   main.deliveryList = deliveryList;

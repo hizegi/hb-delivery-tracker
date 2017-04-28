@@ -3,13 +3,27 @@
 <head>
   <meta charset="utf-8">
   <title>HBloom Delivery Tracker</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
   <link rel="stylesheet" href="style.css">
   <script src="app.js"></script>
+  <script src="script.js"></script>
+  <base href="/all">
 </head>
-<body ng-controller="deliveryController as vm">
-  <h1>Delivery Tracker</h1>
+<body ng-controller="deliveryController">
+  <header class="row spacing">
+    <h1>Delivery Tracker</h1>
+    <nav class="col-md-8 col-md-offset-2">
+      <ul class="nav nav-tabs">
+        <li><a href="/all">View All</a></li>
+        <li><a href="/delivered">Delivered</a></li>
+        <li><a href="/accepted">Accepted</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div ng-view></div>
 
 </body>
 </html>
